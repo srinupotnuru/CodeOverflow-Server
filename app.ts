@@ -8,7 +8,6 @@ import * as favicon from 'serve-favicon';
 import * as path from 'path';
 import * as cors from 'cors';
 import * as mongo from './db';
-const allowedOrigins = ['http://localhost:4200'];
 export class App extends Server {
     constructor() {
         super(true);

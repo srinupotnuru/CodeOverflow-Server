@@ -3,6 +3,7 @@ import { OtpMap } from '../models/otpMap.model';
 import * as bcrypt from 'bcrypt';
 import * as nodemailer from 'nodemailer';
 import * as otpGenerator from 'otp-generator';
+import { DraftUser } from '../models/draftUser.model';
 
 export const register = async (data) =>
 {
@@ -30,28 +31,35 @@ export const register = async (data) =>
         text: `${otp}`
     };
 
-    transporter.sendMail(mailOptions, async function(error, info){
+    await transporter.sendMail(mailOptions, async function(error, info){
         if (error) {
             console.log(error);
         } else {
             console.log('OTP sent to : ' + data.email);
-            const otpMap ={email :data.email , otp : otp};
-            return await OtpMap.create(otpMap);
+            console.log(otp)
+            let resData = await OtpMap.findOneAndUpdate(
+                 { email: data.email },
+                {$set: { otp: otp  , email:data.email}},
+                { upsert: true, new: true }
+            );
+            console.log(resData);
+            return  resData
         }
     });
 
 
     
-    const saltRounds = 10;
-    const userPlainPassword = data.password;
-    const hash=await bcrypt.hash(userPlainPassword, saltRounds);
-    data.password=hash;
-    const user = await User.create(data);
-    return user;
+    // const saltRounds = 10;
+    // const userPlainPassword = data.password;
+    // const hash=await bcrypt.hash(userPlainPassword, saltRounds);
+    // data.password=hash;
+    // const user = await User.create(data);
+    // return user;
     
 }
 
 export const login = async (data) =>{
+    console.log(data)
     const user = await User.findOne({regdNumber: data.regdNumber});
     if(!user)
     {
