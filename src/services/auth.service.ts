@@ -63,7 +63,7 @@ export const login = async (data) =>{
     const user = await User.findOne({regdNumber: data.regdNumber});
     if(!user)
     {
-        throw "User not found";
+        throw `User not found with regdNumber ${data.regdNumber}`;
     }
     const isPasswordValid = await bcrypt.compare(data.password, user.password);
     if(!isPasswordValid)

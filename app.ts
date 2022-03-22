@@ -20,13 +20,17 @@ export class App extends Server {
           });      
     }
     private corsPolicy() {
-        this.app.use(cors())
+        this.app.use((req, res, next) => {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE,OPTIONS");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, user, authorization, Client-Type");
+            next();
+        });
     }
     setUpMiddleWares(){
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(morgan('dev'));
-        this.app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
     }
 
     setUpControllers() {

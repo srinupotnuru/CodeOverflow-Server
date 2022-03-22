@@ -12,7 +12,7 @@
         "baseUrl": "./src"
     },
     "include": [
-        "**/*.ts",
+        "**/*.ts","public"
     ],
     "exclude": [
         "node_modules"
