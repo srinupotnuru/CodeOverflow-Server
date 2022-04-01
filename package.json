@@ -12,6 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@angular/animations": "^13.3.1",
+    "@angular/cdk": "^13.3.2",
+    "@angular/material": "^13.3.2",
     "@overnightjs/core": "^1.7.6",
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
