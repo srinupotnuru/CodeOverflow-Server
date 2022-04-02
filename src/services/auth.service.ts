@@ -36,13 +36,11 @@ export const register = async (data) =>
             console.log(error);
         } else {
             console.log('OTP sent to : ' + data.email);
-            console.log(otp)
             let resData = await OtpMap.findOneAndUpdate(
                  { email: data.email },
                 {$set: { otp: otp  , email:data.email}},
                 { upsert: true, new: true }
             );
-            console.log(resData);
             return  resData
         }
     });
@@ -59,7 +57,6 @@ export const register = async (data) =>
 }
 
 export const login = async (data) =>{
-    console.log(data)
     const user = await User.findOne({regdNumber: data.regdNumber});
     if(!user)
     {
@@ -71,4 +68,43 @@ export const login = async (data) =>{
         throw "Invalid password";
     }
     return user;
+}
+
+
+export const registerUser = async(data) => {
+    const {email, otp, password}= data;
+    delete data.otp;
+
+    // check if the user previously exists
+
+    let user = await User.findOne({ email: email });
+
+    // if user exists;
+    if(user)  throw `A user exists with the given  ${data.email}`;
+
+    //else
+    else{
+
+        // check if user enters the correct otp;
+
+        const saltRounds = 10;
+
+        let record_found = await OtpMap.findOne({email:email, otp:otp});
+
+        if(record_found){
+            // entry found 
+            bcrypt.hash(password, saltRounds, async (err, hash) => {
+                // Now we can store the password hash in db.
+                await User.create({...data, password:hash});
+
+              });
+            return "User Entry is Successfully Created";
+        }
+        else{
+            throw `User entered wrong OTP`;
+        }
+
+    }
+
+
 }
