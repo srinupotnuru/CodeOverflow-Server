@@ -8,3 +8,7 @@ export const createQuestion = async (question:IQuestion) => {
 export const getQuestions = async ()=>{
     return await Question.find({});
 }
+
+export const getQuestion = async (id:string)=>{
+    return await Question.findById(id);
+}

@@ -15,21 +15,22 @@ export class CompilerController{
                 url: 'https://judge0-ce.p.rapidapi.com/submissions',
                 params: {base64_encoded: 'true', fields: '*'},
                 headers: {
-                  'content-type': 'application/json',
-                  'Content-Type': 'application/json',
-                  'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-                  'X-RapidAPI-Key': '9c49072fe1mshdd34de97cf2d4a2p1ee385jsn414d8b5996eb'
+                    'content-type': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
+                    'X-RapidAPI-Key': 'c47b528b82msh498ca3ebc8b9535p169e3ejsn290b3ebe2398'
                 },
                 data: req.body
               };
               const token:any = await axios.request(options)
+              console.log(token)
               const submissionOptions:any = {
                     method: 'GET',
                     url: 'https://judge0-ce.p.rapidapi.com/submissions/' + token.data.token,
                     params: {base64_encoded: 'true', fields: '*'},
                     headers: {
                     'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-                    'X-RapidAPI-Key': '9c49072fe1mshdd34de97cf2d4a2p1ee385jsn414d8b5996eb'
+                    'X-RapidAPI-Key': 'c47b528b82msh498ca3ebc8b9535p169e3ejsn290b3ebe2398'
                     }
                 };
             const submission = await axios.request(submissionOptions)
@@ -42,7 +43,7 @@ export class CompilerController{
 
         
         } catch (error) {
-           console.log(error.data);
+           console.log(error);
         } 
             
     }
