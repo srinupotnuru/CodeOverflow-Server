@@ -9,7 +9,6 @@ export class AuthenticationController {
     async register(req: Request, res: Response) {
         try {
             const data = await register(req.body);
-            console.log(data);
             return res.status(200).send({
                 message: 'Register successfull.',
                 success: true,
