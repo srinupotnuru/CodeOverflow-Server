@@ -5,8 +5,8 @@ class Config {
     private dbpassword = process.env.dbpassword || '';
     private dbhost = process.env.dbhost || 'localhost';
     private dbname = process.env.dbname || 'codeOverFlow';
-    private jdoodleClientID = process.env.JDOODLE_CLIENT_ID || '';
-    private jdoodleSecret = process.env.JDOODLE_CLIENT_SECRET || '';
+    private RAPID_API_KEY = process.env.RAPID_API_KEY || '';
+    private EMAIL_APP_KEY = process.env.EMAIL_APP_KEY || '';
     public get config(): any {
         return this;
     }

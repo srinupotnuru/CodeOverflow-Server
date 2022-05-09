@@ -2,6 +2,7 @@ import { Controller, Get, Post } from '@overnightjs/core';
 import { Request, Response } from 'express';
 import { Question } from '../models/question.model';
 import { createQuestion, getQuestions, getQuestion} from '../services/question.service';
+import config from '../../config';
 import axios from 'axios';
 @Controller('question')
 export class QuestionController{
@@ -9,7 +10,9 @@ export class QuestionController{
     @Post('question')
     async compile(req: Request, res: Response) {
         try {
-            const question = createQuestion(req.body);
+            const user = req.body.user;
+            delete req.body.user;
+            const question = createQuestion(req.body, user);
             return res.send({
                 data: question,
                 success: true,
@@ -68,7 +71,7 @@ export class QuestionController{
                       'content-type': 'application/json',
                       'Content-Type': 'application/json',
                       'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-                      'X-RapidAPI-Key': 'c47b528b82msh498ca3ebc8b9535p169e3ejsn290b3ebe2398'
+                      'X-RapidAPI-Key': config.RAPID_API_KEY
                     },
                     data: {...code, ...{stdin: Buffer.from(inputs[i]).toString('base64')}},
                   };
@@ -79,7 +82,7 @@ export class QuestionController{
                         params: {base64_encoded: 'true', fields: '*'},
                         headers: {
                         'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-                        'X-RapidAPI-Key': 'c47b528b82msh498ca3ebc8b9535p169e3ejsn290b3ebe2398'
+                        'X-RapidAPI-Key': config.RAPID_API_KEY
                         }
                     };
                 const submission = await axios.request(submissionOptions)

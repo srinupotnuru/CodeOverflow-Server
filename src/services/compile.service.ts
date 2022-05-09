@@ -1,4 +1,5 @@
-import axios from "Axios"
+import axios from "Axios";
+import config from '../../config';
 export const compile = async (program:any) => {
 
     const options:any = {
@@ -9,7 +10,7 @@ export const compile = async (program:any) => {
           'content-type': 'application/json',
           'Content-Type': 'application/json',
           'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-          'X-RapidAPI-Key': '9c49072fe1mshdd34de97cf2d4a2p1ee385jsn414d8b5996eb'
+          'X-RapidAPI-Key': config.RAPID_API_KEY
         },
         data: program
       };
@@ -22,7 +23,7 @@ export const compile = async (program:any) => {
           params: {base64_encoded: 'true', fields: '*'},
           headers: {
             'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-            'X-RapidAPI-Key': '9c49072fe1mshdd34de97cf2d4a2p1ee385jsn414d8b5996eb'
+            'X-RapidAPI-Key': config.RAPID_API_KEY
           }
         };
         

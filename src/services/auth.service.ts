@@ -3,7 +3,8 @@ import { OtpMap } from '../models/otpMap.model';
 import * as bcrypt from 'bcrypt';
 import * as nodemailer from 'nodemailer';
 import * as otpGenerator from 'otp-generator';
-import { DraftUser } from '../models/draftUser.model';
+import config from '../../config';
+import { env } from 'process';
 
 export const register = async (data) =>
 {
@@ -20,15 +21,15 @@ export const register = async (data) =>
         service: 'gmail',
         auth: {
             user: 'iamsrinu3@gmail.com',
-            pass: 'nilkamxnadikrlbu'
+            pass: config.EMAIL_APP_KEY
         }
     });
 
     var mailOptions = {
         from: 'iamsrinu3@gmail.com',
         to: data.email,
-        subject: 'Sending Email using Node.js',
-        text: `${otp}`
+        subject: 'CodeOverFlow',
+        text: `Your Email One Time Password(OTP) to log into your CodeOverFlow account is ${otp}`
     };
 
     await transporter.sendMail(mailOptions, async function(error, info){
