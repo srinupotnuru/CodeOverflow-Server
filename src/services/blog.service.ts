@@ -17,5 +17,5 @@ export const getBlog = async (id:string)=>{
 }
 
 export const getMyBlogs = async (id:string)=>{
-    return await Blog.find({contributedBy:new mongoose.Types.ObjectId(id)}).populate('contributedBy');
+    return await Blog.find({contributedBy: id}).populate('contributedBy');
 }

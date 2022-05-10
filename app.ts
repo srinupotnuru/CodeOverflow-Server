@@ -7,17 +7,14 @@ import * as morgan from 'morgan';
 import * as favicon from 'serve-favicon';
 import * as path from 'path';
 import * as cors from 'cors';
-import * as mongo from './db';
+import { Db } from './db';
 export class App extends Server {
     constructor() {
         super(true);
         this.corsPolicy();
         this.setUpMiddleWares();
         this.setUpControllers();  
-        mongo.connect({
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-          });      
+        Db.connect();      
     }
     private corsPolicy() {
         this.app.use((req, res, next) => {
@@ -30,6 +27,7 @@ export class App extends Server {
     setUpMiddleWares(){
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(express.static('client'))
         this.app.use(morgan('dev'));
     }
 
