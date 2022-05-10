@@ -1,4 +1,4 @@
-import axios from "Axios";
+import axios from "axios";
 import config from '../../config';
 export const compile = async (program:any) => {
 

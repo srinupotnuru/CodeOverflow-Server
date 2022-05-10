@@ -27,7 +27,7 @@ export class Db {
                 mongoose.connection.on('close', () => { console.error('lost Db connection'); });
                 mongoose.connection.on('reconnected', () => { console.info('Db reconnected'); });
                 mongoose.connection.on('error', () => { console.error('Db connection error'); });
-                await mongoose.connect(dbUrl);
+                await mongoose.connect(process.env.url);
                 resolve();
             } catch (err) {
                 console.debug('Error while db connection ' + JSON.stringify(err));
