@@ -12,6 +12,7 @@ export class QuestionController{
         try {
             const user = req.body.user;
             delete req.body.user;
+            console.log(req.body,"req.body")
             const question = await createQuestion(req.body, user);
             return res.send({
                 data: question,
