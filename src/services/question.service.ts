@@ -2,7 +2,8 @@ import {Question, IQuestion} from '../models/question.model'
 import { DraftQuestion } from '../models/draft-question.model';
 export const createQuestion = async (question:IQuestion, user:any) => {
 
-    const questionData = await DraftQuestion.create(question);
+    const questionData = await Question.create(question);
+    console.log(questionData,"qdata");
         return questionData;
     if(user.userType === 'STUDENT'){
         const questionData = await DraftQuestion.create(question);
