@@ -11,11 +11,8 @@ export class QuestionController{
     async compile(req: Request, res: Response) {
         try {
             const user = req.body.user;
-            console.log(user);
             delete req.body.user;
-            console.log(req.body,"bodu");
-            const question = createQuestion(req.body, user);
-            console.log(question);
+            const question = await createQuestion(req.body, user);
             return res.send({
                 data: question,
                 success: true,

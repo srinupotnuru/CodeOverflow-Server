@@ -5,10 +5,10 @@ export const createQuestion = async (question:IQuestion, user:any) => {
     const questionData = await Question.create(question);
     console.log(questionData,"qdata");
         return questionData;
-    if(user.userType === 'STUDENT'){
-        const questionData = await DraftQuestion.create(question);
-        return questionData;
-    }
+    // if(user.userType === 'STUDENT'){
+    //     const questionData = await DraftQuestion.create(question);
+    //     return questionData;
+    // }
     // const questionData = await Question.create(question);
     // return questionData;
 }
